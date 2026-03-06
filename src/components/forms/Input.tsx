@@ -1,4 +1,4 @@
-import { cn } from '../utils'
+import { cn } from '../../utils'
 import type { InputHTMLAttributes } from 'react'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {

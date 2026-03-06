@@ -8,7 +8,7 @@ import {
   CheckCircle, User, Bookmark, Shield, Grid3X3, UserCheck
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
-import { cn } from '../utils'
+import { cn } from '../../utils'
 
 const ICON_MAP: Record<string, LucideIcon> = {
   LayoutGrid, Users, Building2, FileText, Clock, BookOpen, BarChart2,

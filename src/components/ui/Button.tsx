@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '../utils'
+import { cn } from '../../utils'
 import type { ReactNode } from 'react'
 
 const buttonVariants = cva(

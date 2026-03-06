@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { LogOut } from 'lucide-react'
-import { cn } from '../utils'
+import { cn } from '../../utils'
 import { VeluLogo } from './VeluLogo'
 import { Avatar } from '../ui/Avatar'
 

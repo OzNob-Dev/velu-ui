@@ -1,4 +1,4 @@
-import { cn, getInitials } from '../utils'
+import { cn, getInitials } from '../../utils'
 
 interface AvatarProps {
   name: string
