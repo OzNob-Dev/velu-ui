@@ -60,10 +60,13 @@ export function TopNav({
         top: 0,
         zIndex: 50,
         boxShadow: '0 1px 0 rgba(255,255,255,0.06)',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        scrollbarWidth: 'none',
       }}
     >
       {/* Left */}
-      <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+      <div style={{ display: 'flex', alignItems: 'center', height: '100%', flexShrink: 0, minWidth: 0 }}>
         <Link href={logoHref} style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0, textDecoration: 'none' }}>
           <VeluLogo size={26} />
           <span style={{ fontFamily: "'DM Serif Display', serif", fontSize: 18, color: 'white', letterSpacing: '-0.02em' }}>
@@ -104,7 +107,7 @@ export function TopNav({
       </div>
 
       {/* Right */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0, marginLeft: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <Avatar name={userName} src={userAvatarSrc} size="sm" color={userAvatarColor} />
           <div className="hidden sm:block">

@@ -123,10 +123,13 @@ function TopNav({
         position: "sticky",
         top: 0,
         zIndex: 50,
-        boxShadow: "0 1px 0 rgba(255,255,255,0.06)"
+        boxShadow: "0 1px 0 rgba(255,255,255,0.06)",
+        overflowX: "auto",
+        overflowY: "hidden",
+        scrollbarWidth: "none"
       },
       children: [
-        /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { display: "flex", alignItems: "center", height: "100%" }, children: [
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { display: "flex", alignItems: "center", height: "100%", flexShrink: 0, minWidth: 0 }, children: [
           /* @__PURE__ */ jsxRuntime.jsxs(Link__default.default, { href: logoHref, style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0, textDecoration: "none" }, children: [
             /* @__PURE__ */ jsxRuntime.jsx(VeluLogo, { size: 26 }),
             /* @__PURE__ */ jsxRuntime.jsx("span", { style: { fontFamily: "'DM Serif Display', serif", fontSize: 18, color: "white", letterSpacing: "-0.02em" }, children: "Velu" })
@@ -159,7 +162,7 @@ function TopNav({
             ] }, mod.href);
           }) })
         ] }),
-        /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { display: "flex", alignItems: "center", gap: 12 }, children: [
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { display: "flex", alignItems: "center", gap: 12, flexShrink: 0, marginLeft: 16 }, children: [
           /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
             /* @__PURE__ */ jsxRuntime.jsx(Avatar, { name: userName, src: userAvatarSrc, size: "sm", color: userAvatarColor }),
             /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "hidden sm:block", children: [
@@ -239,7 +242,9 @@ function SubNav({ items, accentColor = "#F97316" }) {
         top: 52,
         zIndex: 40,
         overflowX: "auto",
-        scrollbarWidth: "none"
+        overflowY: "hidden",
+        scrollbarWidth: "none",
+        WebkitOverflowScrolling: "touch"
       },
       children: items.map((item) => {
         const Icon = ICON_MAP[item.icon];
@@ -255,7 +260,8 @@ function SubNav({ items, accentColor = "#F97316" }) {
             style: {
               color: isActive ? "#1C1C1E" : "#6B6B6E",
               borderBottomColor: isActive ? accentColor : "transparent",
-              textDecoration: "none"
+              textDecoration: "none",
+              flexShrink: 0
             },
             children: [
               Icon && /* @__PURE__ */ jsxRuntime.jsx(Icon, { size: 14, style: { opacity: isActive ? 1 : 0.5 } }),

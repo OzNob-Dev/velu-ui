@@ -60,7 +60,9 @@ export function SubNav({ items, accentColor = '#F97316' }: SubNavProps) {
         top: 52,
         zIndex: 40,
         overflowX: 'auto',
+        overflowY: 'hidden',
         scrollbarWidth: 'none',
+        WebkitOverflowScrolling: 'touch',
       }}
     >
       {items.map((item) => {
@@ -78,6 +80,7 @@ export function SubNav({ items, accentColor = '#F97316' }: SubNavProps) {
               color: isActive ? '#1C1C1E' : '#6B6B6E',
               borderBottomColor: isActive ? accentColor : 'transparent',
               textDecoration: 'none',
+              flexShrink: 0,
             }}
           >
             {Icon && <Icon size={14} style={{ opacity: isActive ? 1 : 0.5 }} />}
