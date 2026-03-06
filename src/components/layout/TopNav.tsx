@@ -35,6 +35,9 @@ const DEFAULT_MODULES: NavModule[] = [
 // Groups: [coral, coral] | [teal, teal] | [admin]
 const DIVIDER_AFTER = ['/recruiter', '/candidate']
 
+const TEAL_MODULES = ['/manager', '/candidate']
+const ADMIN_MODULES = ['/admin']
+
 export function TopNav({
   modules = DEFAULT_MODULES,
   userName,
@@ -45,6 +48,12 @@ export function TopNav({
   logoHref = '/hr',
 }: TopNavProps) {
   const pathname = usePathname()
+
+  const logoVariant = (() => {
+    if (ADMIN_MODULES.some(m => pathname.startsWith(m))) return 'dual' as const
+    if (TEAL_MODULES.some(m => pathname.startsWith(m))) return 'teal' as const
+    return 'coral' as const
+  })()
 
   return (
     <nav
@@ -68,7 +77,7 @@ export function TopNav({
       {/* Left */}
       <div style={{ display: 'flex', alignItems: 'center', height: '100%', flexShrink: 0, minWidth: 0 }}>
         <Link href={logoHref} style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0, textDecoration: 'none' }}>
-          <VeluLogo size={26} />
+          <VeluLogo size={26} variant={logoVariant} />
           <span style={{ fontFamily: "'DM Serif Display', serif", fontSize: 18, color: 'white', letterSpacing: '-0.02em' }}>
             Velu
           </span>

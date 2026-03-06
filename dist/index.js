@@ -63,9 +63,21 @@ function formatDateShort(date) {
     year: "numeric"
   }).format(new Date(date));
 }
-function VeluLogo({ size = 26 }) {
+function VeluLogo({ size = 26, variant = "coral" }) {
+  if (variant === "dual") {
+    return /* @__PURE__ */ jsxRuntime.jsxs("svg", { width: size, height: size, viewBox: "0 0 56 56", fill: "none", children: [
+      /* @__PURE__ */ jsxRuntime.jsx("defs", { children: /* @__PURE__ */ jsxRuntime.jsx("clipPath", { id: "velu-clip", children: /* @__PURE__ */ jsxRuntime.jsx("rect", { width: "56", height: "56", rx: "14" }) }) }),
+      /* @__PURE__ */ jsxRuntime.jsxs("g", { clipPath: "url(#velu-clip)", children: [
+        /* @__PURE__ */ jsxRuntime.jsx("polygon", { points: "0,0 56,0 28,56 0,56", fill: "#F97316" }),
+        /* @__PURE__ */ jsxRuntime.jsx("polygon", { points: "56,0 56,56 28,56", fill: "#0D7A6E" })
+      ] }),
+      /* @__PURE__ */ jsxRuntime.jsx("line", { x1: "10", y1: "11", x2: "28", y2: "45", stroke: "white", strokeWidth: "5", strokeLinecap: "round", opacity: "0.45" }),
+      /* @__PURE__ */ jsxRuntime.jsx("line", { x1: "46", y1: "11", x2: "28", y2: "45", stroke: "white", strokeWidth: "8.5", strokeLinecap: "round" })
+    ] });
+  }
+  const bg = variant === "teal" ? "#0D7A6E" : "#F97316";
   return /* @__PURE__ */ jsxRuntime.jsxs("svg", { width: size, height: size, viewBox: "0 0 56 56", fill: "none", children: [
-    /* @__PURE__ */ jsxRuntime.jsx("rect", { width: "56", height: "56", rx: "14", fill: "#F97316" }),
+    /* @__PURE__ */ jsxRuntime.jsx("rect", { width: "56", height: "56", rx: "14", fill: bg }),
     /* @__PURE__ */ jsxRuntime.jsx("line", { x1: "10", y1: "11", x2: "28", y2: "45", stroke: "white", strokeWidth: "5", strokeLinecap: "round", opacity: "0.45" }),
     /* @__PURE__ */ jsxRuntime.jsx("line", { x1: "46", y1: "11", x2: "28", y2: "45", stroke: "white", strokeWidth: "8.5", strokeLinecap: "round" })
   ] });
@@ -99,6 +111,8 @@ var DEFAULT_MODULES = [
   { label: "Admin", href: "/admin", color: "#4A5568" }
 ];
 var DIVIDER_AFTER = ["/recruiter", "/candidate"];
+var TEAL_MODULES = ["/manager", "/candidate"];
+var ADMIN_MODULES = ["/admin"];
 function TopNav({
   modules = DEFAULT_MODULES,
   userName,
@@ -109,6 +123,11 @@ function TopNav({
   logoHref = "/hr"
 }) {
   const pathname = navigation.usePathname();
+  const logoVariant = (() => {
+    if (ADMIN_MODULES.some((m) => pathname.startsWith(m))) return "dual";
+    if (TEAL_MODULES.some((m) => pathname.startsWith(m))) return "teal";
+    return "coral";
+  })();
   return /* @__PURE__ */ jsxRuntime.jsxs(
     "nav",
     {
@@ -131,7 +150,7 @@ function TopNav({
       children: [
         /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { display: "flex", alignItems: "center", height: "100%", flexShrink: 0, minWidth: 0 }, children: [
           /* @__PURE__ */ jsxRuntime.jsxs(Link__default.default, { href: logoHref, style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0, textDecoration: "none" }, children: [
-            /* @__PURE__ */ jsxRuntime.jsx(VeluLogo, { size: 26 }),
+            /* @__PURE__ */ jsxRuntime.jsx(VeluLogo, { size: 26, variant: logoVariant }),
             /* @__PURE__ */ jsxRuntime.jsx("span", { style: { fontFamily: "'DM Serif Display', serif", fontSize: 18, color: "white", letterSpacing: "-0.02em" }, children: "Velu" })
           ] }),
           /* @__PURE__ */ jsxRuntime.jsx("div", { style: { width: 1, height: 20, background: "rgba(255,255,255,0.1)", margin: "0 16px", flexShrink: 0 } }),

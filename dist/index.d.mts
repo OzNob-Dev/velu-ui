@@ -43,8 +43,9 @@ declare function PageHeader({ title, subtitle, children, className }: PageHeader
 
 interface VeluLogoProps {
     size?: number;
+    variant?: 'coral' | 'teal' | 'dual';
 }
-declare function VeluLogo({ size }: VeluLogoProps): react_jsx_runtime.JSX.Element;
+declare function VeluLogo({ size, variant }: VeluLogoProps): react_jsx_runtime.JSX.Element;
 
 declare const buttonVariants: (props?: ({
     variant?: "coral" | "teal" | "primary" | "outline" | "ghost" | "danger" | null | undefined;
