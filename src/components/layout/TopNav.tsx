@@ -11,7 +11,6 @@ export interface NavModule {
   label: string
   href: string
   color: string
-  dot?: string
 }
 
 export interface TopNavProps {
@@ -27,11 +26,14 @@ export interface TopNavProps {
 
 const DEFAULT_MODULES: NavModule[] = [
   { label: 'HR Core',          href: '/hr',        color: '#F97316' },
-  { label: 'Manager Coach',    href: '/manager',   color: '#0D7A6E' },
   { label: 'Recruiter',        href: '/recruiter', color: '#F97316' },
+  { label: 'Manager Coach',    href: '/manager',   color: '#0D7A6E' },
   { label: 'Candidate Portal', href: '/candidate', color: '#0D7A6E' },
   { label: 'Admin',            href: '/admin',     color: '#4A5568' },
 ]
+
+// Groups: [coral, coral] | [teal, teal] | [admin]
+const DIVIDER_AFTER = ['/recruiter', '/candidate']
 
 export function TopNav({
   modules = DEFAULT_MODULES,
@@ -48,7 +50,7 @@ export function TopNav({
     <nav
       style={{
         background: '#1C1C1E',
-        height: '52px',
+        height: 52,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -62,7 +64,7 @@ export function TopNav({
     >
       {/* Left */}
       <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-        <Link href={logoHref} style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+        <Link href={logoHref} style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0, textDecoration: 'none' }}>
           <VeluLogo size={26} />
           <span style={{ fontFamily: "'DM Serif Display', serif", fontSize: 18, color: 'white', letterSpacing: '-0.02em' }}>
             Velu
@@ -74,28 +76,28 @@ export function TopNav({
         <div style={{ display: 'flex', alignItems: 'stretch', height: '100%' }}>
           {modules.map((mod) => {
             const isActive = pathname.startsWith(mod.href)
+            const showDivider = DIVIDER_AFTER.includes(mod.href)
             return (
-              <Link
-                key={mod.href}
-                href={mod.href}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  padding: '0 14px',
-                  fontSize: 13,
-                  fontWeight: 500,
-                  borderBottom: `2px solid ${isActive ? mod.color : 'transparent'}`,
-                  color: isActive ? 'white' : 'rgba(255,255,255,0.45)',
-                  background: isActive ? 'rgba(255,255,255,0.06)' : 'transparent',
-                  textDecoration: 'none',
-                  whiteSpace: 'nowrap',
-                  transition: 'all 0.15s',
-                }}
-              >
-                <span style={{ width: 6, height: 6, borderRadius: '50%', background: mod.color, flexShrink: 0 }} />
-                {mod.label}
-              </Link>
+              <div key={mod.href} style={{ display: 'flex', alignItems: 'stretch' }}>
+                <Link
+                  href={mod.href}
+                  className={cn(
+                    'flex items-center gap-1.5 px-3.5 text-[13px] font-medium border-b-2 transition-all whitespace-nowrap',
+                    isActive ? 'text-white' : 'text-white/45 border-transparent hover:text-white/80 hover:bg-white/5'
+                  )}
+                  style={{
+                    background: isActive ? 'rgba(255,255,255,0.06)' : undefined,
+                    borderBottomColor: isActive ? mod.color : 'transparent',
+                    textDecoration: 'none',
+                  }}
+                >
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: mod.color, flexShrink: 0 }} />
+                  {mod.label}
+                </Link>
+                {showDivider && (
+                  <div style={{ width: 1, height: 20, background: 'rgba(255,255,255,0.1)', margin: 'auto 4px', flexShrink: 0 }} />
+                )}
+              </div>
             )
           })}
         </div>

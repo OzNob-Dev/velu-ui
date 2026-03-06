@@ -8,7 +8,6 @@ interface NavModule {
     label: string;
     href: string;
     color: string;
-    dot?: string;
 }
 interface TopNavProps {
     modules?: NavModule[];

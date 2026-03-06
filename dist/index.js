@@ -3,9 +3,9 @@
 var navigation = require('next/navigation');
 var Link = require('next/link');
 var lucideReact = require('lucide-react');
-var jsxRuntime = require('react/jsx-runtime');
 var clsx = require('clsx');
 var tailwindMerge = require('tailwind-merge');
+var jsxRuntime = require('react/jsx-runtime');
 var classVarianceAuthority = require('class-variance-authority');
 
 function _interopDefault (e) { return e && e.__esModule ? e : { default: e }; }
@@ -43,13 +43,6 @@ var __objRest = (source, exclude) => {
     }
   return target;
 };
-function VeluLogo({ size = 26 }) {
-  return /* @__PURE__ */ jsxRuntime.jsxs("svg", { width: size, height: size, viewBox: "0 0 56 56", fill: "none", children: [
-    /* @__PURE__ */ jsxRuntime.jsx("rect", { width: "56", height: "56", rx: "14", fill: "#F97316" }),
-    /* @__PURE__ */ jsxRuntime.jsx("line", { x1: "10", y1: "11", x2: "28", y2: "45", stroke: "white", strokeWidth: "5", strokeLinecap: "round", opacity: "0.45" }),
-    /* @__PURE__ */ jsxRuntime.jsx("line", { x1: "46", y1: "11", x2: "28", y2: "45", stroke: "white", strokeWidth: "8.5", strokeLinecap: "round" })
-  ] });
-}
 function cn(...inputs) {
   return tailwindMerge.twMerge(clsx.clsx(inputs));
 }
@@ -69,6 +62,13 @@ function formatDateShort(date) {
     month: "short",
     year: "numeric"
   }).format(new Date(date));
+}
+function VeluLogo({ size = 26 }) {
+  return /* @__PURE__ */ jsxRuntime.jsxs("svg", { width: size, height: size, viewBox: "0 0 56 56", fill: "none", children: [
+    /* @__PURE__ */ jsxRuntime.jsx("rect", { width: "56", height: "56", rx: "14", fill: "#F97316" }),
+    /* @__PURE__ */ jsxRuntime.jsx("line", { x1: "10", y1: "11", x2: "28", y2: "45", stroke: "white", strokeWidth: "5", strokeLinecap: "round", opacity: "0.45" }),
+    /* @__PURE__ */ jsxRuntime.jsx("line", { x1: "46", y1: "11", x2: "28", y2: "45", stroke: "white", strokeWidth: "8.5", strokeLinecap: "round" })
+  ] });
 }
 var sizeMap = {
   xs: { outer: "w-6 h-6", text: "text-[9px]" },
@@ -93,11 +93,12 @@ function Avatar({ name, src, size = "md", color = "#F97316", className }) {
 }
 var DEFAULT_MODULES = [
   { label: "HR Core", href: "/hr", color: "#F97316" },
-  { label: "Manager Coach", href: "/manager", color: "#0D7A6E" },
   { label: "Recruiter", href: "/recruiter", color: "#F97316" },
+  { label: "Manager Coach", href: "/manager", color: "#0D7A6E" },
   { label: "Candidate Portal", href: "/candidate", color: "#0D7A6E" },
   { label: "Admin", href: "/admin", color: "#4A5568" }
 ];
+var DIVIDER_AFTER = ["/recruiter", "/candidate"];
 function TopNav({
   modules = DEFAULT_MODULES,
   userName,
@@ -113,7 +114,7 @@ function TopNav({
     {
       style: {
         background: "#1C1C1E",
-        height: "52px",
+        height: 52,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -126,38 +127,36 @@ function TopNav({
       },
       children: [
         /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { display: "flex", alignItems: "center", height: "100%" }, children: [
-          /* @__PURE__ */ jsxRuntime.jsxs(Link__default.default, { href: logoHref, style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }, children: [
+          /* @__PURE__ */ jsxRuntime.jsxs(Link__default.default, { href: logoHref, style: { display: "flex", alignItems: "center", gap: 8, flexShrink: 0, textDecoration: "none" }, children: [
             /* @__PURE__ */ jsxRuntime.jsx(VeluLogo, { size: 26 }),
             /* @__PURE__ */ jsxRuntime.jsx("span", { style: { fontFamily: "'DM Serif Display', serif", fontSize: 18, color: "white", letterSpacing: "-0.02em" }, children: "Velu" })
           ] }),
           /* @__PURE__ */ jsxRuntime.jsx("div", { style: { width: 1, height: 20, background: "rgba(255,255,255,0.1)", margin: "0 16px", flexShrink: 0 } }),
           /* @__PURE__ */ jsxRuntime.jsx("div", { style: { display: "flex", alignItems: "stretch", height: "100%" }, children: modules.map((mod) => {
             const isActive = pathname.startsWith(mod.href);
-            return /* @__PURE__ */ jsxRuntime.jsxs(
-              Link__default.default,
-              {
-                href: mod.href,
-                style: {
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 6,
-                  padding: "0 14px",
-                  fontSize: 13,
-                  fontWeight: 500,
-                  borderBottom: `2px solid ${isActive ? mod.color : "transparent"}`,
-                  color: isActive ? "white" : "rgba(255,255,255,0.45)",
-                  background: isActive ? "rgba(255,255,255,0.06)" : "transparent",
-                  textDecoration: "none",
-                  whiteSpace: "nowrap",
-                  transition: "all 0.15s"
-                },
-                children: [
-                  /* @__PURE__ */ jsxRuntime.jsx("span", { style: { width: 6, height: 6, borderRadius: "50%", background: mod.color, flexShrink: 0 } }),
-                  mod.label
-                ]
-              },
-              mod.href
-            );
+            const showDivider = DIVIDER_AFTER.includes(mod.href);
+            return /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { display: "flex", alignItems: "stretch" }, children: [
+              /* @__PURE__ */ jsxRuntime.jsxs(
+                Link__default.default,
+                {
+                  href: mod.href,
+                  className: cn(
+                    "flex items-center gap-1.5 px-3.5 text-[13px] font-medium border-b-2 transition-all whitespace-nowrap",
+                    isActive ? "text-white" : "text-white/45 border-transparent hover:text-white/80 hover:bg-white/5"
+                  ),
+                  style: {
+                    background: isActive ? "rgba(255,255,255,0.06)" : void 0,
+                    borderBottomColor: isActive ? mod.color : "transparent",
+                    textDecoration: "none"
+                  },
+                  children: [
+                    /* @__PURE__ */ jsxRuntime.jsx("span", { style: { width: 6, height: 6, borderRadius: "50%", background: mod.color, flexShrink: 0 } }),
+                    mod.label
+                  ]
+                }
+              ),
+              showDivider && /* @__PURE__ */ jsxRuntime.jsx("div", { style: { width: 1, height: 20, background: "rgba(255,255,255,0.1)", margin: "auto 4px", flexShrink: 0 } })
+            ] }, mod.href);
           }) })
         ] }),
         /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { display: "flex", alignItems: "center", gap: 12 }, children: [
@@ -213,6 +212,16 @@ var ICON_MAP = {
   Grid3X3: lucideReact.Grid3X3,
   UserCheck: lucideReact.UserCheck
 };
+function isActiveHref(pathname, href, items) {
+  if (pathname === href) return true;
+  if (pathname.startsWith(href + "/")) {
+    const longerMatch = items.some(
+      (other) => other.href !== href && other.href.startsWith(href) && pathname.startsWith(other.href)
+    );
+    return !longerMatch;
+  }
+  return false;
+}
 function SubNav({ items, accentColor = "#F97316" }) {
   const pathname = navigation.usePathname();
   return /* @__PURE__ */ jsxRuntime.jsx(
@@ -234,7 +243,7 @@ function SubNav({ items, accentColor = "#F97316" }) {
       },
       children: items.map((item) => {
         const Icon = ICON_MAP[item.icon];
-        const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+        const isActive = isActiveHref(pathname, item.href, items);
         return /* @__PURE__ */ jsxRuntime.jsxs(
           Link__default.default,
           {

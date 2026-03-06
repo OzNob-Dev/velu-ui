@@ -28,6 +28,21 @@ interface SubNavProps {
   accentColor?: string
 }
 
+function isActiveHref(pathname: string, href: string, items: SubNavItem[]): boolean {
+  // Exact match always wins
+  if (pathname === href) return true
+  // For prefix match, ensure no longer href in the list matches first
+  if (pathname.startsWith(href + '/')) {
+    const longerMatch = items.some(
+      other => other.href !== href &&
+        other.href.startsWith(href) &&
+        pathname.startsWith(other.href)
+    )
+    return !longerMatch
+  }
+  return false
+}
+
 export function SubNav({ items, accentColor = '#F97316' }: SubNavProps) {
   const pathname = usePathname()
 
@@ -50,7 +65,7 @@ export function SubNav({ items, accentColor = '#F97316' }: SubNavProps) {
     >
       {items.map((item) => {
         const Icon = ICON_MAP[item.icon]
-        const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
+        const isActive = isActiveHref(pathname, item.href, items)
         return (
           <Link
             key={item.href}
